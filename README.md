@@ -32,11 +32,4 @@ weather_app.py
 
 This project uses the OpenWeather API.
 Replace the API key in the code:
-
-api_key = "YOUR_API_KEY"
-
-**Notes**
-
-Requires internet connection
-City name must be valid
-API usage may be rate-limited
+api_key = "it_should_be_you_api_key_not_mine"
