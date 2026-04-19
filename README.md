@@ -1,5 +1,5 @@
 # weather-app-using-openweather-API
-A desktop weather application built with Python and PyQt5 that fetches real-time weather data using the OpenWeather API.
+A desktop weather application built with Python and PyQt5.
 
 **Features**
 
