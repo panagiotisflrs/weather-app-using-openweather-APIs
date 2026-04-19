@@ -25,15 +25,7 @@ Handles invalid input and network errors
 
 **Installation**
 
-Clone the repository:
-
-git clone https://github.com/yourusername/weather-app.git
-
-cd weather-app
-
-Install dependencies:
-
-pip install PyQt5 requests
+You will need to pip install PyQt5 requests
 
 **Usage**
 
