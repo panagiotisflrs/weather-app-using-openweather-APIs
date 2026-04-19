@@ -52,9 +52,6 @@ class WeatherApp(QWidget):
         vbox.addWidget(self.cloudiness_label)
         vbox.addWidget(self.atmospheric_pressure_label)
         vbox.addWidget(self.emoji_label)
-        #vbox is kinda like tkinter.
-        #When we create a frame for example we also have to pack it.
-        #Same logic with vbox. To pack it we need the command setLayout.
         self.setLayout(vbox)
 
         #Now i can align everything to the center of my box/window.
@@ -114,7 +111,7 @@ class WeatherApp(QWidget):
         """)
 
         #I have to connect: clicking the get_weather_button with
-        #actually clicking it once and getting my result.
+        #Actually clicking it once and getting my result.
         #Unlike here, if i created a window and a button with tkinter
         #then clicking it actually gets the job done.
         #But here i have to make the connection!
@@ -131,14 +128,15 @@ class WeatherApp(QWidget):
         #I will use the try and catch method for my dangerous code.
         #Dangerous code is the code that might cause an error.
         try:
-            #i make an api request and i get a response
+            #I make an api request and i get a response
             #which i will store in response variable.
             response = requests.get(url)
+            
             #Normaly the try and catch method isn't able to catch
-            # HTTPError. So i need to add an extra command for this error.
+            #HTTPError. So i need to add an extra command for this error.
             response.raise_for_status()
 
-            #now i take my response and convert it into a
+            #Now i take my response and convert it into a
             #json format and then store it in data.
             #I need this type of format because that's how openai weather works.
             data = response.json()
@@ -195,9 +193,9 @@ class WeatherApp(QWidget):
             label.clear()
 
     def display_weather(self,data):
-        #print(data)
+        #print(data) helps alot throughout this proccess.
 
-        #For the temperature we need to turn Kelvin into Celcius.
+        #For temperature.
         temperature_k = data["main"]["temp"]
         temperature_c = "{:.1f}".format(temperature_k - 273.15) + "C"
 
@@ -217,9 +215,6 @@ class WeatherApp(QWidget):
         self.humidity_label.setText("Humidity: " + f"{humidity}" + " %")
 
         #For description. I notice that its like this ' ': [{}]
-        #(an array and then a dictionary).
-        #On previous cases it was like ' ': {}.
-        #(a dictionary).
         description = data["weather"][0]["description"]
         self.description_label.setText("The weather is: " + description)
 
@@ -236,7 +231,6 @@ class WeatherApp(QWidget):
         self.cloudiness_label.setText("Cloudiness: " + f"{cloudiness}" + " %")
 
         #For atmospheric pressure.
-        #(1hPa is 100Pa or 1 millibar.).
         atm_pressure = data["main"]["pressure"]
         self.atmospheric_pressure_label.setText("Atmosphere: " + f"{atm_pressure}" + " hPa")
 
@@ -245,7 +239,7 @@ class WeatherApp(QWidget):
         emoji = data["weather"][0]["icon"]
         #Once the code form icon is retrieved, we use the url to get
         #a response and then use that response to plug it in our
-        #rmoji label. However we are going to use .setPixmap and so
+        #emoji label. However we are going to use .setPixmap and so
         #i need to define it using QPixmap().
         url_for_emoji = f"https://openweathermap.org/img/wn/{emoji}@2x.png"
         response_for_emoji = requests.get(url_for_emoji)
@@ -255,13 +249,16 @@ class WeatherApp(QWidget):
         self.emoji_label.setPixmap(pixmap)
 
 
-#if running this exact file directly then and only then can the weather app be created.
+#If running this exact file directly then and only then can the weather app be created.
 if __name__ == '__main__':
-    #access the module of sys and then access the argv = arguments
+    
+    #Access the module of sys and then access the argv = arguments.
     app = QApplication(sys.argv)
     weather_app = WeatherApp()
     weather_app.show()
+    
     #I don't want the app to just pop up for like a milliseconds.
     #I want to be able to close it by my self.
     #app.exec_() is a method that handles events within my application. For example clicking x to close.
     sys.exit(app.exec_())
+    
